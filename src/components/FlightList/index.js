@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import FlightArr from './Arrival/index'
-import FlightDep from './Departure/index'
-import flightsInfoArr from './Arrival/ListArr16'
-import flightsInfoDep from './Departure/ListDep'
-import InputLiveSearch from "./InputLiveSearch";
-//import Example from './Auto';
+import FlightArr from '../Arrival/index'
+import FlightDep from '../Departure/index'
+import flightsInfoArr from '../Arrival/ListArr16'
+import flightsInfoDep from '../Departure/ListDep'
+import './style.css'
 
 
 class FlightList extends Component{
@@ -28,15 +27,12 @@ class FlightList extends Component{
     handleInputChange(event) {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         const name = event.target.name;
-
         this.setState({[name]: value});
-        // console.log('handleInputChange',value);
     }
 
     render(){
         const {isDeparture} = this.props;
 
-        // console.log('isDeparture',isDeparture);
         /**Подготовка информации для запроса*/
         let airport = 'SVO';
         let arr_dep = ['arr','dep'];
@@ -69,8 +65,6 @@ class FlightList extends Component{
                                 +appId+'&appKey='
                                 +appKey+'&utc=true&numHours='
                                 +deltaTime;
-        // let requestURLARR = 'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/SVO/arr/2018/09/16/17?appId=c94f5080&appKey=b5bda98edd70d3704331778613e20487&utc=true&numHours=1';
-        // console.log('requestURLArr',requestURLArr);
         let request = new XMLHttpRequest();
         request.open('GET', requestURLArr, false);
         request.onload = function() {
@@ -120,11 +114,9 @@ class FlightList extends Component{
 
         /**Обработка входящих параметров*/
 
-        let dataSearchArr=[];
         let inputNumb = this.state.val;
         let inputCheck=this.state.isGoing;
         let listDep = isDeparture;
-        console.log('inputNumb,inputCheck,listStatus',inputNumb,inputCheck,listDep);
         let data=[];
         let dataFirst=[];
         function GlobalListOperator() {
@@ -219,85 +211,29 @@ class FlightList extends Component{
             }
         }
         GlobalListOperator();
-        console.log('---DATA----',data);
-
-
-        function fDataSearchArr() {
-            for (let i=0; i<flightsArrFull.flightStatuses.length;i++){
-                let data_flightNumber=flightsArrFull.flightStatuses[i].flightNumber;
-                if (data_flightNumber.includes(inputNumb)){
-                    dataSearchArr.push(flightsArrFull.flightStatuses[i]);
-                }
-            }
-        }
-        fDataSearchArr();
-
-        let dataSearchDep=[];
-        function fDataSearchDep() {
-            for (let i=0; i<flightsDepFull.flightStatuses.length;i++){
-                let data_flightNumber=flightsDepFull.flightStatuses[i].flightNumber;
-                if (data_flightNumber.includes(inputNumb)){
-                    dataSearchDep.push(flightsDepFull.flightStatuses[i]);
-                }
-            }
-        }
-        fDataSearchDep();
-
-
-        // function fDataFlyDalayDep() {
-        //     /**Здесь надо влупить СУУУПЕР функцию!!!!*/
-        //     for (let i=0; i<flightsDepFull.flightStatuses.length;i++){
-        //                 if (flightsDepFull.flightStatuses[i].delays!==undefined){
-        //                     dataFlyDalayDep.push(flightsDepFull.flightStatuses[i]);
-        //                 }
-        //             }
-        // }
-        //
-        // function fDataFlyDalayArr() {
-        //     /**Здесь надо влупить СУУУПЕР функцию!!!!*/
-        //     for (let i=0; i<flightsArrFull.flightStatuses.length;i++){
-        //         if (flightsArrFull.flightStatuses[i].delays!==undefined){
-        //             dataFlyDalayArr.push(flightsArrFull.flightStatuses[i]);
-        //         }
-        //     }
-        // }
-
-
-        const inputNumber=<input className="form-control-lg" style={{width:'100%', marginBottom:'10px'}} type="text"
-            placeholder="Search by flight number or city..." onChange={this.handleChange} value={this.state.val}/>;
-
-
-        const checkBox=<input name="isGoing" type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />;
 
         /**Формирование данных для child*/
-        // const flightElements = (isDeparture)?
-        //     flightsDepFull.flightStatuses.map((flightsDepFull_flightStatuses, index) =>
-        //         <tr className='list-group-item' key={index}><FlightDep flightsDepFull_flightStatuses = {flightsDepFull_flightStatuses} flightsDepFull={flightsDepFull}/></tr>):
-        // flightsArrFull.flightStatuses.map((flightsArrFull_flightStatuses, index) =>
-        //     <tr className='list-group-item' key={index}><FlightArr flightsArrFull_flightStatuses = {flightsArrFull_flightStatuses} flightsArrFull={flightsArrFull} /></tr>);
-
-        const flightElements = (isDeparture)?
-            dataSearchDep.map((dataSearchDep, index) =>
-                <tr className='list-group-item' key={index}><FlightDep flightsDepFull_flightStatuses = {dataSearchDep} flightsDepFull={flightsDepFull}/></tr>):
-
-            dataSearchArr.map((dataSearchArr, index) =>
-                <tr className='list-group-item' key={index}><FlightArr flightsArrFull_flightStatuses = {dataSearchArr} flightsArrFull={flightsArrFull} /></tr>);
-
 
         const dataFlight = (isDeparture)? data.map((data,index) =>
-            <tr className='list-group-item' key={index}><FlightDep flightsFull_flightStatuses = {data} flightsDepFull={flightsDepFull}/></tr>):
+            <tbody key={index}><FlightDep flightsDepFull_flightStatuses = {data} flightsDepFull={flightsDepFull}/></tbody>):
             data.map((data,index) =>
-                <tr className='list-group-item' key={index}><FlightArr flightsFull_flightStatuses = {data} flightsArrFull={flightsArrFull} /></tr>);
+                <tbody key={index}><FlightArr flightsArrFull_flightStatuses = {data} flightsArrFull={flightsArrFull} /></tbody>);
 
         return(
             <div>
-                {inputNumber}
-                {checkBox}
-            <tbody>
-            {/*{flightElements}*/}
-            {dataFlight}
-            </tbody>
+                <div className="input-group mb-3">
+                    <input className="form-control" type="text" placeholder="Search by flight number..." onChange={this.handleChange} value={this.state.val}/>
+                    <div className="input-group-append">
+                        <div className="input-group-text border_off_r" style={{borderRight:'0 !important'}}>
+                            <input name="isGoing" type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />
+                        </div>
+                        <div className="input-group-text border_off_l" style={{color:'red', opacity:'0.7', borderLeft:'0 !important'}}>show only delayed flights</div>
+                    </div>
 
+                </div>
+            <table className='table table-hover'>
+                {dataFlight}
+            </table>
             </div>
         )
     }

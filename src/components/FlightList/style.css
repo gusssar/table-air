@@ -1,0 +1,9 @@
+.border_off_l{
+    border-left: 0 !important;
+    background: #e9ecef !important;
+}
+
+.border_off_r{
+    border-right: 0 !important;
+    background: #e9ecef !important;
+}
