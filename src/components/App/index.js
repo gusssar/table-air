@@ -7,37 +7,34 @@ import logo from './img/logo.png'
 class App extends Component{
 
     state = {
-        isDeparture: true,
+        isDeparture: true
     };
 
 
     render(){
-        const style = {
-            display:'inline-block',
-            width:'30vw !important',
-            fontSize:'5vw',
-            margin: '1vw'
-        };
+        const header_title = (this.state.isDeparture)?
+            <div className='jumbotron'>
+                <div className='my_title my_title_on' onClick={this.departureClick}>Departure</div>
+                <div className='my_title'  onClick={this.arrivalClick}>Arrival</div>
+            </div>
+        :
+            <div className='jumbotron'>
+                <div className='my_title' onClick={this.departureClick}>Departure</div>
+                <div className='my_title my_title_on'  onClick={this.arrivalClick}>Arrival</div>
+            </div>;
+
+
 
         const body =<FlightList  isDeparture = {this.state.isDeparture}/>;
         return (
             <div className="container">
                 <img className='logo' src={logo} alt={"logo"} />
-                {/*<h1 className='App-header'>SHEREMETYEVO</h1>*/}
-
-                <div className='jumbotron'>
-                    <div className='my_title' style={style} onClick={this.departureClick}>Departure</div>
-                    <div className='my_title' style={style} onClick={this.arrivalClick}>Arrival</div>
-                </div>
+                {header_title}
                 <table className='list-group table-hover'>
-                    {/*{body}*/}
                </table>
                 {body}
             </div>
-
         )
-
-
     }
 
 
@@ -54,9 +51,5 @@ class App extends Component{
         })
     }
 }
-
-// function App() {
-//
-// }
 
 export default App

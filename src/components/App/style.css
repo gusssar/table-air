@@ -1,3 +1,13 @@
+.my_title{
+    display:inline-block;
+    width:30vw !important;
+    font-size:5vw;
+    margin: 1vw;
+}
+.my_title_on{
+    color: #ffac02;
+    opacity: 0.7;
+}
 .my_title:hover{
     color: #ffac02;
     cursor: pointer;

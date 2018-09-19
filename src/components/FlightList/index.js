@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import FlightArr from '../Arrival/index'
 import FlightDep from '../Departure/index'
-import flightsInfoArr from '../Arrival/ListArr16'
-import flightsInfoDep from '../Departure/ListDep'
+import flightsInfoArr from '../Arrival/ListArr_19_09_2018__06h'
+import flightsInfoDep from '../Departure/ListDep_19_09_2019_06h'
 import './style.css'
 
 
@@ -48,8 +48,8 @@ class FlightList extends Component{
             dateFull[date.getUTCDate()],
             dateFull[date.getUTCHours()]
         ];
-        let appId = 'c94f5080';
-        let appKey = 'b5bda98edd70d3704331778613e20487';
+        let appId = '';
+        let appKey = '';
         let deltaTime = '2';
 
 
@@ -65,14 +65,14 @@ class FlightList extends Component{
                                 +appId+'&appKey='
                                 +appKey+'&utc=true&numHours='
                                 +deltaTime;
-        let request = new XMLHttpRequest();
-        request.open('GET', requestURLArr, false);
-        request.onload = function() {
+        let requestArr = new XMLHttpRequest();
+        requestArr.open('GET', requestURLArr, false);
+        requestArr.onload = function() {
             /**Зарубили!!!!*/
-            //flightsArrFull = JSON.parse(request.response);
+            //flightsArrFull = JSON.parse(requestArr.response);
             flightsArrFull=flightsInfoArr;
         };
-        request.send();
+        requestArr.send();
         /**Зарубили!!!!*/
         //flightsArrFull=JSON.parse(flightsInfoArr);
 
