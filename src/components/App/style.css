@@ -1,6 +1,7 @@
 .my_title{
     display:inline-block;
     width:30vw !important;
+    max-width: 500px !important;
     font-size:5vw;
     margin: 1vw;
 }
@@ -17,4 +18,12 @@
     max-height: 42px;
     width: 40vw;
     height: 7vw;
+}
+.jumbotron{
+    padding: 0 !important;
+}
+@media (min-width: 1600px) {
+    .my_title{
+        font-size: 76px;
+    }
 }

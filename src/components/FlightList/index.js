@@ -34,71 +34,77 @@ class FlightList extends Component{
         const {isDeparture} = this.props;
 
         /**Подготовка информации для запроса*/
-        let airport = 'SVO';
-        let arr_dep = ['arr','dep'];
-        let monthFull=['01','02','03','04','05','06','07','08','09','10','11','12'];
-        let dateFull=['00','01','02','03','04','05','06','07','08','09','10',
-            '11','12','13','14','15','16','17','18','19','20',
-            '21','22','23','24','25','26','27','28','29','30',
-            '31'];
-        let date = new Date();
-        let setTime = [
-            date.getUTCFullYear(),
-            monthFull[date.getUTCMonth()],
-            dateFull[date.getUTCDate()],
-            dateFull[date.getUTCHours()]
-        ];
-        let appId = '';
-        let appKey = '';
-        let deltaTime = '2';
+        // let airport = 'SVO';
+        // let arr_dep = ['arr','dep'];
+        // let monthFull=['01','02','03','04','05','06','07','08','09','10','11','12'];
+        // let dateFull=['00','01','02','03','04','05','06','07','08','09','10',
+        //     '11','12','13','14','15','16','17','18','19','20',
+        //     '21','22','23','24','25','26','27','28','29','30',
+        //     '31'];
+        // let date = new Date();
+        // let setTime = [
+        //     date.getUTCFullYear(),
+        //     monthFull[date.getUTCMonth()],
+        //     dateFull[date.getUTCDate()],
+        //     dateFull[date.getUTCHours()]
+        // ];
+        // let appId = '';
+        // let appKey = '';
+        // let deltaTime = '2';
 
 
         /**Запрос информации о прибытии*/
         let flightsArrFull = {};
-        let requestURLArr=  'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/'
-                                +airport+'/'
-                                +arr_dep[0]+'/'
-                                +setTime[0]+'/'
-                                +setTime[1]+'/'
-                                +setTime[2]+'/'
-                                +setTime[3]+'?appId='
-                                +appId+'&appKey='
-                                +appKey+'&utc=true&numHours='
-                                +deltaTime;
-        let requestArr = new XMLHttpRequest();
-        requestArr.open('GET', requestURLArr, false);
-        requestArr.onload = function() {
+        // let requestURLArr=  'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/'
+        //                         +airport+'/'
+        //                         +arr_dep[0]+'/'
+        //                         +setTime[0]+'/'
+        //                         +setTime[1]+'/'
+        //                         +setTime[2]+'/'
+        //                         +setTime[3]+'?appId='
+        //                         +appId+'&appKey='
+        //                         +appKey+'&utc=true&numHours='
+        //                         +deltaTime;
+        // let requestArr = new XMLHttpRequest();
+        // requestArr.open('GET', requestURLArr, false);
+        // requestArr.onload = function() {
             /**Зарубили!!!!*/
             //flightsArrFull = JSON.parse(requestArr.response);
-            flightsArrFull=flightsInfoArr;
-        };
-        requestArr.send();
+        //     flightsArrFull=flightsInfoArr;
+        // };
+        // requestArr.send();
         /**Зарубили!!!!*/
         //flightsArrFull=JSON.parse(flightsInfoArr);
 
+        /**Локальная база*/
+        flightsArrFull=flightsInfoArr;
+
         /**Запрос информации о вылете*/
         let flightsDepFull = {};
-        let requestURLDep=  'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/'
-            +airport+'/'
-            +arr_dep[1]+'/'
-            +setTime[0]+'/'
-            +setTime[1]+'/'
-            +setTime[2]+'/'
-            +setTime[3]+'?appId='
-            +appId+'&appKey='
-            +appKey+'&utc=true&numHours='
-            +deltaTime;
-
-        let requestDep = new XMLHttpRequest();
-        requestDep.open('GET', requestURLDep, false);
-        requestDep.onload = function() {
+        // let requestURLDep=  'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/'
+        //     +airport+'/'
+        //     +arr_dep[1]+'/'
+        //     +setTime[0]+'/'
+        //     +setTime[1]+'/'
+        //     +setTime[2]+'/'
+        //     +setTime[3]+'?appId='
+        //     +appId+'&appKey='
+        //     +appKey+'&utc=true&numHours='
+        //     +deltaTime;
+        //
+        // let requestDep = new XMLHttpRequest();
+        // requestDep.open('GET', requestURLDep, false);
+        // requestDep.onload = function() {
             /**Зарубили!!!!*/
             //flightsDepFull = JSON.parse(requestDep.response);
-            flightsDepFull=flightsInfoDep;
-        };
-        requestDep.send();
+        //     flightsDepFull=flightsInfoDep;
+        // };
+        // requestDep.send();
         /**Зарубили!!!!*/
         //flightsDepFull=JSON.parse(flightsDepFull);
+
+        /**Локальная база*/
+        flightsDepFull=flightsInfoDep;
 
         /**Сортировка по времени прибытия*/
         function compareTimeArr(a,b) {
@@ -222,7 +228,7 @@ class FlightList extends Component{
         return(
             <div>
                 <div className="input-group mb-3">
-                    <input className="form-control" type="text" placeholder="Search by flight number..." onChange={this.handleChange} value={this.state.val}/>
+                    <input className="form-control" type="number" placeholder="Search by flight number..." onChange={this.handleChange} value={this.state.val}/>
                     <div className="input-group-append">
                         <div className="input-group-text border_off_r" style={{borderRight:'0 !important'}}>
                             <input name="isGoing" type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />
